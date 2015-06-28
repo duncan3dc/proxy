@@ -8,5 +8,8 @@
         "email": "git@duncanc.co.uk",
         "homepage": "https://github.com/duncan3dc",
         "role": "Developer"
-    }]
+    }],
+    "require": {
+        "guzzlehttp/guzzle": "^6.0"
+    }
 }
