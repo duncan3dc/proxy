@@ -9,7 +9,9 @@ $client = new Client;
 
 $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
-$request = new Request($_SERVER["REQUEST_METHOD"], $url);
+$request = new Request($_SERVER["REQUEST_METHOD"], $url, [
+    "User-Agent"    =>  $_SERVER["HTTP_USER_AGENT"],
+]);
 
 $response = $client->send($request);
 
