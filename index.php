@@ -18,5 +18,5 @@ $request = new Request($_SERVER["REQUEST_METHOD"], $url, [
 $response = $client->send($request);
 
 http_response_code($response->getStatusCode());
-header("Content-Type: " . $response->getHeader("content-type"));
+header("Content-Type: " . $response->getHeader("content-type")[0]);
 echo $response->getBody();
