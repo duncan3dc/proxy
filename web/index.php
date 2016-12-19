@@ -3,7 +3,7 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
-require __DIR__ . "/vendor/autoload.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 $client = new Client([
     "http_errors"   =>  false,
