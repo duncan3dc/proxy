@@ -1,2 +1,2 @@
 RewriteEngine on
-RewriteRule ^ index.php [L]
+RewriteRule !^robots.txt$ index.php [L]
