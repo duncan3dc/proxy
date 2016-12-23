@@ -3,6 +3,7 @@
 namespace duncan3dc\Proxy;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 class App
 {
@@ -21,6 +22,12 @@ class App
             "form_params"   =>  $_POST,
         ]);
 
+        $this->respond($response);
+    }
+
+
+    private function respond(ResponseInterface $response): void
+    {
         http_response_code($response->getStatusCode());
         header("Content-Type: " . $response->getHeader("content-type")[0]);
         echo $response->getBody();
