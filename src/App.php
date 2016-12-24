@@ -13,7 +13,7 @@ class App
             "http_errors"   =>  false,
         ]);
 
-        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+        $url = $this->generateUrl();
 
         $response = $client->request($_SERVER["REQUEST_METHOD"], $url, [
             "headers"       =>  [
@@ -23,6 +23,12 @@ class App
         ]);
 
         $this->respond($response);
+    }
+
+
+    private function generateUrl(): string
+    {
+        return "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
     }
 
 
