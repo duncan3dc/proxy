@@ -7,15 +7,22 @@ use Psr\Http\Message\ResponseInterface;
 
 class App
 {
-    public function run(): void
+    private $client;
+
+
+    public function __construct()
     {
-        $client = new Client([
+        $this->client = new Client([
             "http_errors"   =>  false,
         ]);
+    }
 
+
+    public function run(): void
+    {
         $url = $this->generateUrl();
 
-        $response = $client->request($_SERVER["REQUEST_METHOD"], $url, [
+        $response = $this->client->request($_SERVER["REQUEST_METHOD"], $url, [
             "headers"       =>  [
                 "User-Agent"    =>  $_SERVER["HTTP_USER_AGENT"],
             ],
