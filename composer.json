@@ -10,6 +10,7 @@
         "role": "Developer"
     }],
     "require": {
+        "duncan3dc/guzzle-tools": "^0.2",
         "guzzlehttp/guzzle": "^6.1",
         "php": "^7.0"
     },

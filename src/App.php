@@ -2,7 +2,9 @@
 
 namespace duncan3dc\Proxy;
 
+use duncan3dc\Guzzle\Request;
 use GuzzleHttp\Client;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class App
@@ -20,22 +22,26 @@ class App
 
     public function run(): void
     {
-        $url = $this->generateUrl();
+        $request = $this->createRequest();
 
-        $response = $this->client->request($_SERVER["REQUEST_METHOD"], $url, [
+        $response = $this->client->send($request);
+
+        $this->respond($response);
+    }
+
+
+    private function createRequest(): RequestInterface
+    {
+        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+
+        $request = Request::make($_SERVER["REQUEST_METHOD"], $url, [
             "headers"       =>  [
                 "User-Agent"    =>  $_SERVER["HTTP_USER_AGENT"],
             ],
             "form_params"   =>  $_POST,
         ]);
 
-        $this->respond($response);
-    }
-
-
-    private function generateUrl(): string
-    {
-        return "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+        return $request;
     }
 
 
