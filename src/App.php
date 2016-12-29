@@ -4,6 +4,7 @@ namespace duncan3dc\Proxy;
 
 use duncan3dc\Guzzle\Request;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -24,7 +25,7 @@ class App
     {
         $request = $this->createRequest();
 
-        $response = $this->client->send($request);
+        $response = $this->getResponse($request);
 
         $this->respond($response);
     }
@@ -42,6 +43,24 @@ class App
         ]);
 
         return $request;
+    }
+
+
+    private function getResponse(RequestInterface $request): ResponseInterface
+    {
+        try {
+            $response = $this->client->send($request);
+        } catch (\Throwable $e) {
+            $response = $this->createErrorResponse($e);
+        }
+
+        return $response;
+    }
+
+
+    private function createErrorResponse(\Throwable $e): ResponseInterface
+    {
+        return new Response(500, ["Content-Type" => "text/plain"], $e->getMessage());
     }
 
 
