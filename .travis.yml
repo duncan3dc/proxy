@@ -1,0 +1,26 @@
+language: php
+
+php:
+  - 7.1
+  - nightly
+
+matrix:
+  allow_failures:
+  - php: nightly
+
+env:
+  - COMPOSER_OPTS=""
+  - COMPOSER_OPTS="--prefer-lowest"
+
+install:
+  - composer self-update --snapshot
+  - composer update $COMPOSER_OPTS
+
+script:
+  - vendor/bin/phpunit
+
+git:
+  depth: 1
+
+dist: trusty
+sudo: false
